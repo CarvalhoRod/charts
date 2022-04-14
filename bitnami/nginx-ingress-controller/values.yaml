@@ -191,13 +191,13 @@ extraEnvVarsSecret: ""
 
 ## @param kind Install as Deployment or DaemonSet
 ##
-kind: Deployment
+kind: Daemonset
 ## Daemonset configuration
 ##
 daemonset:
   ## @param daemonset.useHostPort If `kind` is `DaemonSet`, this will enable `hostPort` for `TCP/80` and `TCP/443`
   ##
-  useHostPort: false
+  useHostPort: true
   ## @param daemonset.hostPorts [object] HTTP and HTTPS ports
   ##
   hostPorts:
@@ -651,7 +651,8 @@ defaultBackend:
 service:
   ## @param service.type Kubernetes Service type for Controller
   ##
-  type: LoadBalancer
+  # type: LoadBalancer
+  type: ClusterIP
   ## @param service.ports [object] Service ports
   ##
   ports:
@@ -762,7 +763,7 @@ autoscaling:
 metrics:
   ## @param metrics.enabled Enable exposing Controller statistics
   ##
-  enabled: false
+  enabled: true
   ## Prometheus exporter service parameters
   ##
   service:
@@ -782,10 +783,10 @@ metrics:
   serviceMonitor:
     ## @param metrics.serviceMonitor.enabled Create ServiceMonitor resource for scraping metrics using PrometheusOperator
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
     ##
-    namespace: ""
+    namespace: "cattle-monitoring-system"
     ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
     ##
